@@ -13,24 +13,39 @@ public class PagamentoService {
     @Autowired
     private PagamentoRepository pagamentoRepository;
 
-    public List<Pagamento> buscarPorCodigoDebito(String codigoDebito) {
-        return pagamentoRepository.findByCodigoDebito(codigoDebito);
+    public Pagamento criarPagamento(Pagamento pagamento) {
+        return pagamentoRepository.save(pagamento);
     }
 
-    public List<Pagamento> buscarPorCpfCnpj(String cpfCnpj) {
-        return pagamentoRepository.findByCpfCnpjPagador(cpfCnpj);
-    }
+    public Pagamento atualizarStatus(Long id, StatusPagamento novoStatus) {
+        Pagamento pagamento = pagamentoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Pagamento com Id " + id +" não encontrado!"));
 
-    public List<Pagamento> buscarPorStatus(StatusPagamento status) {
-        return pagamentoRepository.findByStatus(status);
-    }
-
-    public Pagamento excluirPagamento(Long id) {
-        Pagamento pagamento = pagamentoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pagamento não encontrado"));
-        if (pagamento.getStatus() == StatusPagamento.PENDENTE) {
-            pagamento.setAtivo(false);
-            return pagamentoRepository.save(pagamento);
+        if (pagamento.getStatus() == StatusPagamento.PROCESSADO_SUCESSO) {
+            throw new IllegalStateException("Não é possível alterar o status de um pagamento já processado com sucesso.");
         }
-        throw new RuntimeException("Somente pagamentos com status 'Pendente de Processamento' podem ser excluídos!");
+        if (pagamento.getStatus() == StatusPagamento.PROCESSADO_FALHA && novoStatus != StatusPagamento.PENDENTE) {
+            throw new IllegalStateException("Pagamentos com falha só podem voltar para Status Pendente.");
+        }
+
+        pagamento.setStatus(novoStatus);
+        return pagamentoRepository.save(pagamento);
     }
+
+    public List<Pagamento> listarPagamentos() {
+        return pagamentoRepository.findAll();
+        }
+
+    public void excluirPagamento(Long id) {
+        Pagamento pagamento = pagamentoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado!"));
+
+        if (pagamento.getStatus() == StatusPagamento.PENDENTE) {
+            pagamento.setStatus(StatusPagamento.INATIVO);
+            pagamentoRepository.save(pagamento);
+        } else {
+            throw new IllegalStateException("Somente pagamentos pendentes podem ser excluídos.");
+        }
+    }
+
 }

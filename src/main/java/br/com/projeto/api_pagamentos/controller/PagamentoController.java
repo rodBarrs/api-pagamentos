@@ -16,7 +16,7 @@ public class PagamentoController {
     private PagamentoService pagamentoService;
 
     @GetMapping("/codigo-debito/{codigoDebito}")
-    public List<Pagamento> buscarPorCodigoDebito(@PathVariable String codigoDebito) {
+    public List<Pagamento> buscarPorCodigoDebito(@PathVariable Integer codigoDebito) {
         return pagamentoService.buscarPorCodigoDebito(codigoDebito);
     }
 
