@@ -1,7 +1,7 @@
 package br.com.projeto.api_pagamentos.repository;
 
 import br.com.projeto.api_pagamentos.model.Pagamento;
-import br.com.projeto.api_pagamentos.model.StatusPagamento;
+import br.com.projeto.api_pagamentos.model.enumeration.StatusPagamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
