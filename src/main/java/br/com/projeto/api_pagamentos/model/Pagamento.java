@@ -11,24 +11,29 @@ import lombok.Data;
 public class Pagamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
     private Integer codigoDebito;
 
+    @Column(nullable = false)
     private String cpfCnpjPagador;
 
-    private String numeroCartao;
-
-    private Double valorPagamento;
-
-    @Enumerated(EnumType.STRING)
-    private StatusPagamento status;
-
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MetodoPagamento metodoPagamento;
 
-    private boolean ativo;
+    private String numeroCartao;
 
+    @Column(nullable = false)
+    private Double valor;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusPagamento status = StatusPagamento.PENDENTE;
 }
+
+
+
+
