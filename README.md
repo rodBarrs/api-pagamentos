@@ -25,18 +25,21 @@ Certifique-se de que você possui os seguintes requisitos antes de configurar o 
    git clone https://github.com/rodBarrs/api-pagamentos.git
 
 2. O banco de dados padrão configurado é o H2. Se quiser alterar para outro banco, atualize as configurações no arquivo application.properties.
-   credencias h2: spring.datasource.url=jdbc:h2:mem:api_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-                  spring.datasource.username=sa
-                  spring.datasource.password=password
+   credencias h2:
+    spring.datasource.url=jdbc:h2:mem:api_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+   
+    spring.datasource.username=sa
+   
+    spring.datasource.password=password
 
-3. Execute o projeto Spring Boot:
+4. Execute o projeto Spring Boot:
 
    ./mvnw spring-boot:run
 
-4. Por padrão, a API estará acessível em:
+5. Por padrão, a API estará acessível em:
     http://localhost:8080
 
-5. Documentação da API está disponível no arquivo api-pagamentos-fadesp.postman_collection, que está na raíz do projeto, e pode ser aberto pelo postman.   
+6. Documentação da API está disponível no arquivo api-pagamentos-fadesp.postman_collection, que está na raíz do projeto, e pode ser aberto pelo postman.   
 
 
 
