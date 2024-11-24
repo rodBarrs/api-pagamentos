@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "65d668a3-8567-404f-bea5-678dd7420702",
+		"name": "api-pagamentos-fadesp",
+		"description": "### Observações\n\n- **Status de Pagamento:** Utilize os valores aceitos pelo `StatusPagamento` para status, como `PENDENTE`, `PROCESSADO_SUCESSO e PROCESSADO_FALHA`\n    \n- **Métodos de Pagamento:** Utilize os valores do `MetodoPagamento` para evitar erros, como `CARTAO_CREDITO`, `PIX`, CARTAO_DEBITO E BOLETO.\n    \n- **Validações:**\n    \n    - O campo `numeroCartao` é obrigatório apenas para pagamentos com `CARTAO_CREDITO` ou `CARTAO_DEBITO`.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18725542"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/listar-todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"listar-todos"
+							]
+						},
+						"description": "#### **Listar Todos os Pagamentos**\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/api/pagamento/listar-todos`\n    \n- **Descrição:** Retorna todos os pagamentos, incluindo os inativos.\n    \n- Resposta: \\[  \n    {  \n    \"id\": 1,  \n    \"codigoDebito\": 1006,  \n    \"cpfCnpjPagador\": \"987663232100\",  \n    \"metodoPagamento\": \"CARTAO_CREDITO\",  \n    \"numeroCartao\": \"1234567890123456\",  \n    \"valor\": 102.50,  \n    \"status\": \"PROCESSADO_SUCESSO\"  \n    },  \n    {  \n    \"id\": 2,  \n    \"codigoDebito\": 1007,  \n    \"cpfCnpjPagador\": \"12345678910\",  \n    \"metodoPagamento\": \"PIX\",  \n    \"numeroCartao\": null,  \n    \"valor\": 50.00,  \n    \"status\": \"INATIVO\"  \n    }  \n    \\]"
+					},
+					"response": []
+				},
+				{
+					"name": "listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"listar"
+							]
+						},
+						"description": "#### **Listar Pagamentos Ativos**\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/api/pagamento/listar`\n    \n- **Descrição:** Retorna apenas os pagamentos ativos.\n    \n- **Resposta:** (Sem pagamentos inativos, como no exemplo acima.)"
+					},
+					"response": []
+				},
+				{
+					"name": "listar codigo debito",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/listar-codigo_debito/1005",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"listar-codigo_debito",
+								"1005"
+							]
+						},
+						"description": "StartFragment\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/api/pagamento/listar-codigo_debito/{codigoDebito}`\n    \n- **Descrição:** Retorna pagamentos associados a um código de débito específico.\n    \n- **Parâmetro na URL:**\n    \n    - `{codigoDebito}`: Código de débito para filtrar.\n        \n- **Exemplo de Requisição:** `/api/pagamento/listar-codigo_debito/1006`\n    \n- **Resposta:** \\[  \n    {  \n    \"id\": 1,  \n    \"codigoDebito\": 1006,  \n    \"cpfCnpjPagador\": \"987663232100\",  \n    \"metodoPagamento\": \"CARTAO_CREDITO\",  \n    \"numeroCartao\": \"1234567890123456\",  \n    \"valor\": 102.50,  \n    \"status\": \"PENDENTE\"  \n    }  \n    \\]"
+					},
+					"response": []
+				},
+				{
+					"name": "listar cpf cnpj",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/listar-cpf-cnpj/98327663232100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"listar-cpf-cnpj",
+								"98327663232100"
+							]
+						},
+						"description": "#### **Listar Pagamentos por CPF/CNPJ**\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/api/pagamento/listar-cpf-cnpj/{cpfCnpjPagador}`\n    \n- **Descrição:** Retorna pagamentos associados a um CPF ou CNPJ específico.\n    \n- **Parâmetro na URL:**\n    \n    - `{cpfCnpjPagador}`: CPF ou CNPJ do pagador.\n        \n- **Exemplo de Requisição:** `/api/pagamento/listar-cpf-cnpj/987663232100`\n    \n- **Resposta:** Similar ao exemplo anterior."
+					},
+					"response": []
+				},
+				{
+					"name": "listar status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/listar-status/PENDENTE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"listar-status",
+								"PENDENTE"
+							]
+						},
+						"description": "#### **Listar Pagamentos por Status**\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/api/pagamento/listar-status/{status}`\n    \n- **Descrição:** Retorna pagamentos com o status especificado.\n    \n- **Parâmetro na URL:**\n    \n    - `{status}`: Status do pagamento (e.g., `PENDENTE`, `PROCESSADO_SUCESSO`, etc.).\n        \n- **Exemplo de Requisição:** `/api/pagamento/listar-status/PENDENTE`\n    \n- **Resposta:** Lista pagamentos com o status filtrado."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigoDebito\": 1005,\r\n    \"cpfCnpjPagador\": \"9836232100\",\r\n    \"metodoPagamento\": \"CARTAO_CREDITO\",\r\n    \"numeroCartao\": 2534567853,\r\n    \"valor\": 101.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/novo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"novo"
+							]
+						},
+						"description": "#### **Criar Pagamento**\n\n- **Método:** `POST`\n    \n- **Endpoint:** `/api/pagamento/novo`\n    \n- **Descrição:** Cria um novo pagamento.\n    \n- Resposta: {  \n    \"id\": 1,  \n    \"codigoDebito\": 1006,  \n    \"cpfCnpjPagador\": \"987663232100\",  \n    \"metodoPagamento\": \"CARTAO_CREDITO\",  \n    \"numeroCartao\": \"1234567890123456\",  \n    \"valor\": 102.50,  \n    \"status\": \"PENDENTE\"  \n    }"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PATCH",
+			"item": [
+				{
+					"name": "alterar status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/atualizar-status/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"atualizar-status",
+								"1"
+							],
+							"query": [
+								{
+									"key": "novoStatus",
+									"value": "PROCESSADO_SUCESSO",
+									"disabled": true
+								},
+								{
+									"key": "novoStatus",
+									"value": "PROCESSADO_FALHA",
+									"disabled": true
+								},
+								{
+									"key": "novoStatus",
+									"value": "PENDENTE",
+									"disabled": true
+								}
+							]
+						},
+						"description": "#### **Atualizar Status de Pagamento**\n\n- **Método:** `PATCH`\n    \n- **Endpoint:** `/api/pagamento/atualizar-status/{id}`\n    \n- **Descrição:** Atualiza o status de um pagamento.\n    \n- **Parâmetro na URL:**\n    \n    - `{id}`: ID do pagamento a ser atualizado.\n        \n- **Query Parameter:**\n    \n    - `novoStatus`: Novo status para o pagamento (`PENDENTE`, `PROCESSADO_SUCESSO`, `PROCESSADO_FALHA`, etc.).\n        \n- **Exemplo de Requisição:** `/api/pagamento/atualizar-status/1?novoStatus=PROCESSADO_SUCESSO`\n    \n- Resposta: {  \n    \"id\": 1,  \n    \"codigoDebito\": 1006,  \n    \"cpfCnpjPagador\": \"987663232100\",  \n    \"metodoPagamento\": \"CARTAO_CREDITO\",  \n    \"numeroCartao\": \"1234567890123456\",  \n    \"valor\": 102.50,  \n    \"status\": \"PROCESSADO_SUCESSO\"  \n    }"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "excluir",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/pagamento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pagamento",
+								"1"
+							]
+						},
+						"description": "#### **Excluir Pagamento**\n\n- **Método:** `DELETE`\n    \n- **Endpoint:** `/api/pagamento/{id}`\n    \n- **Descrição:** Marca um pagamento como inativo caso esteja pendente.\n    \n- **Parâmetro na URL:**\n    \n    - `{id}`: ID do pagamento a ser excluído.\n        \n- **Resposta (sucesso):** {  \n    \"mensagem\": \"Pagamento excluído com sucesso!\"  \n    }"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -31,7 +31,7 @@ public class PagamentoController {
     public ResponseEntity<List<Pagamento>> listarTodosPagamentos() {
         return ResponseEntity.ok(pagamentoService.listarPagamentos());
     }
-    
+
     @GetMapping("/listar")
     public ResponseEntity<List<Pagamento>> listarPagamentosAtivos() {
         return ResponseEntity.ok(pagamentoService.listarPagamentosAtivos());
