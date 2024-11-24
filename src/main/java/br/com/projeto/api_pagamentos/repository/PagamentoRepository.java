@@ -12,4 +12,5 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     List<Pagamento> findByCodigoDebito(int codigoDebito);
     List<Pagamento> findByCpfCnpjPagador(String pagador);
     List<Pagamento> findByStatus(StatusPagamento status);
+    List<Pagamento> findByStatusNot(StatusPagamento status);
 }

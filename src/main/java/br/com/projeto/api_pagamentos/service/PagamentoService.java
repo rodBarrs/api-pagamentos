@@ -41,6 +41,10 @@ public class PagamentoService {
         return pagamentoRepository.findAll();
         }
 
+    public List<Pagamento> listarPagamentosAtivos() {
+        return pagamentoRepository.findByStatusNot(StatusPagamento.INATIVO);
+    }
+
     public List<Pagamento> listarPorCodigoDebito(Integer codigoDebito) {
         return pagamentoRepository.findByCodigoDebito(codigoDebito);
     }
@@ -53,13 +57,14 @@ public class PagamentoService {
         return pagamentoRepository.findByStatus(status);
     }
 
-    public void excluirPagamento(Long id) {
+    public String excluirPagamento(Long id) {
         Pagamento pagamento = pagamentoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado!"));
 
         if (pagamento.getStatus() == StatusPagamento.PENDENTE) {
             pagamento.setStatus(StatusPagamento.INATIVO);
             pagamentoRepository.save(pagamento);
+            return "Pagamento excluído com sucesso!";
         } else {
             throw new IllegalStateException("Somente pagamentos pendentes podem ser excluídos.");
         }

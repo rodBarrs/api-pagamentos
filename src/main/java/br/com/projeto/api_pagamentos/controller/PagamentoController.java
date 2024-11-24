@@ -27,31 +27,35 @@ public class PagamentoController {
         return ResponseEntity.ok(pagamentoService.atualizarStatus(id, novoStatus));
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<Pagamento>> listarPagamentos() {
+    @GetMapping("/listar-todos")
+    public ResponseEntity<List<Pagamento>> listarTodosPagamentos() {
         return ResponseEntity.ok(pagamentoService.listarPagamentos());
     }
+    
+    @GetMapping("/listar")
+    public ResponseEntity<List<Pagamento>> listarPagamentosAtivos() {
+        return ResponseEntity.ok(pagamentoService.listarPagamentosAtivos());
+    }
 
-
-    @GetMapping("/listar/{codigoDebito}")
+    @GetMapping("/listar-codigo_debito/{codigoDebito}")
     public ResponseEntity<List<Pagamento>> listarPorCodigoDebito(@PathVariable Integer codigoDebito) {
         return ResponseEntity.ok(pagamentoService.listarPorCodigoDebito(codigoDebito));
     }
 
-    @GetMapping("/cpfCnpj/{cpfCnpjPagador}")
+    @GetMapping("/listar-cpf-cnpj/{cpfCnpjPagador}")
     public ResponseEntity<List<Pagamento>> listarPorCpfCnpj(@PathVariable String cpfCnpjPagador) {
         return ResponseEntity.ok(pagamentoService.listarPorCpfCnpj(cpfCnpjPagador));
     }
 
-    @GetMapping("/status/{status}")
+    @GetMapping("/listar-status/{status}")
     public ResponseEntity<List<Pagamento>> listarPorStatus(@PathVariable StatusPagamento status) {
         return ResponseEntity.ok(pagamentoService.listarPorStatus(status));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluirPagamento(@PathVariable Long id) {
-        pagamentoService.excluirPagamento(id);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<String> excluirPagamento(@PathVariable Long id) {
+        String mensagem = pagamentoService.excluirPagamento(id);
+        return ResponseEntity.ok(mensagem);
     }
 
 }
