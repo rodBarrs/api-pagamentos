@@ -39,7 +39,7 @@ Certifique-se de que você possui os seguintes requisitos antes de configurar o 
 5. Por padrão, a API estará acessível em:
     http://localhost:8080
 
-6. Documentação da API está disponível no arquivo api-pagamentos-fadesp.postman_collection, que está na raíz do projeto, e pode ser aberto pelo postman.   
+6. Documentação da API está disponível no arquivo api-pagamentos-fadesp.postman_collection, que está na raíz do projeto, e pode ser aberto pelo postman. Recomenda-se a importação desse arquivo com as rotas prontas para facilitar os testes
 
 
 
