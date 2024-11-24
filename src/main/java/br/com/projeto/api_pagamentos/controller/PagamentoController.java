@@ -33,7 +33,7 @@ public class PagamentoController {
     }
 
 
-    @GetMapping("/codigoDebito/{codigoDebito}")
+    @GetMapping("/listar/{codigoDebito}")
     public ResponseEntity<List<Pagamento>> listarPorCodigoDebito(@PathVariable Integer codigoDebito) {
         return ResponseEntity.ok(pagamentoService.listarPorCodigoDebito(codigoDebito));
     }
