@@ -4,35 +4,54 @@ import br.com.projeto.api_pagamentos.model.Pagamento;
 import br.com.projeto.api_pagamentos.model.enumeration.StatusPagamento;
 import br.com.projeto.api_pagamentos.service.PagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pagamentos")
+@RequestMapping("/api/pagamento")
 public class PagamentoController {
 
     @Autowired
     private PagamentoService pagamentoService;
 
-    @GetMapping("/codigo-debito/{codigoDebito}")
-    public List<Pagamento> buscarPorCodigoDebito(@PathVariable Integer codigoDebito) {
-        return pagamentoService.buscarPorCodigoDebito(codigoDebito);
+
+    @PostMapping("/novo")
+    public ResponseEntity<Pagamento> criarPagamento(@RequestBody Pagamento pagamento) {
+        return ResponseEntity.ok(pagamentoService.criarPagamento(pagamento));
     }
 
-    @GetMapping("/cpf-cnpj/{cpfCnpj}")
-    public List<Pagamento> buscarPorCpfCnpj(@PathVariable String cpfCnpj) {
-        return pagamentoService.buscarPorCpfCnpj(cpfCnpj);
+    @PatchMapping("/atualizar-status/{id}")
+    public ResponseEntity<Pagamento> atualizarStatus(@PathVariable Long id, @RequestParam StatusPagamento novoStatus) {
+        return ResponseEntity.ok(pagamentoService.atualizarStatus(id, novoStatus));
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<Pagamento>> listarPagamentos() {
+        return ResponseEntity.ok(pagamentoService.listarPagamentos());
+    }
+
+
+    @GetMapping("/codigoDebito/{codigoDebito}")
+    public ResponseEntity<List<Pagamento>> listarPorCodigoDebito(@PathVariable Integer codigoDebito) {
+        return ResponseEntity.ok(pagamentoService.listarPorCodigoDebito(codigoDebito));
+    }
+
+    @GetMapping("/cpfCnpj/{cpfCnpjPagador}")
+    public ResponseEntity<List<Pagamento>> listarPorCpfCnpj(@PathVariable String cpfCnpjPagador) {
+        return ResponseEntity.ok(pagamentoService.listarPorCpfCnpj(cpfCnpjPagador));
     }
 
     @GetMapping("/status/{status}")
-    public List<Pagamento> buscarPorStatus(@PathVariable StatusPagamento status) {
-        return pagamentoService.buscarPorStatus(status);
+    public ResponseEntity<List<Pagamento>> listarPorStatus(@PathVariable StatusPagamento status) {
+        return ResponseEntity.ok(pagamentoService.listarPorStatus(status));
     }
 
-    @PatchMapping("/excluir-logico/{id}")
-    public Pagamento excluirLogico(@PathVariable Long id) {
-        return pagamentoService.excluirPagamento(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirPagamento(@PathVariable Long id) {
+        pagamentoService.excluirPagamento(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

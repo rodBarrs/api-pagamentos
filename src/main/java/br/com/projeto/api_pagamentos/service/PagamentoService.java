@@ -36,6 +36,18 @@ public class PagamentoService {
         return pagamentoRepository.findAll();
         }
 
+    public List<Pagamento> listarPorCodigoDebito(Integer codigoDebito) {
+        return pagamentoRepository.findByCodigoDebito(codigoDebito);
+    }
+
+    public List<Pagamento> listarPorCpfCnpj(String cpfCnpjPagador) {
+        return pagamentoRepository.findByCpfCnpjPagador(cpfCnpjPagador);
+    }
+
+    public List<Pagamento> listarPorStatus(StatusPagamento status) {
+        return pagamentoRepository.findByStatus(status);
+    }
+
     public void excluirPagamento(Long id) {
         Pagamento pagamento = pagamentoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado!"));
